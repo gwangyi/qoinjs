@@ -1,0 +1,31 @@
+{
+  "name": "coinjs",
+  "version": "0.1.0",
+  "description": "Coin order monitoring library",
+  "main": "dist/coinjs.min.js",
+  "repository": "http://github.com/gwangyi/coinjs/",
+  "author": "Sungkwang Lee",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^2.0.4",
+    "sockjs-client": "^1.1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.37",
+    "@babel/preset-env": "^7.0.0-beta.37",
+    "babel-loader": "^8.0.0-beta.0",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.dev.js --watch"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env"
+      ]
+    ]
+  }
+}
