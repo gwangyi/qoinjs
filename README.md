@@ -1,4 +1,4 @@
-# coinjs
+# qoinjs
 
 Coin market monitoring library
 
