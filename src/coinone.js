@@ -42,7 +42,6 @@ export class Coinone extends EventEmitter {
     $conn.emit('subscribe', coin, gather[coin])
 
     $conn.on('update', data => {
-      console.log(data)
       let asks = JSON.parse(data.ASK)
       let bids = JSON.parse(data.BID)
       let ask = asks.reduce((y, x) => parseInt(y.price) > parseInt(x.price) ? x : y)

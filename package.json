@@ -1,6 +1,6 @@
 {
   "name": "qoinjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Coin market monitoring library",
   "main": "dist/qoinjs.min.js",
   "repository": "http://github.com/gwangyi/qoinjs/",
