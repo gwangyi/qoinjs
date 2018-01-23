@@ -1,9 +1,9 @@
 {
-  "name": "coinjs",
+  "name": "qoinjs",
   "version": "0.1.0",
-  "description": "Coin order monitoring library",
-  "main": "dist/coinjs.min.js",
-  "repository": "http://github.com/gwangyi/coinjs/",
+  "description": "Coin market monitoring library",
+  "main": "dist/qoinjs.min.js",
+  "repository": "http://github.com/gwangyi/qoinjs/",
   "author": "Sungkwang Lee",
   "license": "MIT",
   "dependencies": {

@@ -3,7 +3,7 @@ const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
   output: {
-    filename: "coinjs.js",
+    filename: "qoinjs.js",
   },
   devtool: 'inline-source-map',
 })

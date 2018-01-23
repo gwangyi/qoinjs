@@ -4,7 +4,7 @@ const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
   output: {
-    filename: "coinjs.min.js",
+    filename: "qoinjs.min.js",
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({

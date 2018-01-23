@@ -5,14 +5,14 @@ Coin market monitoring library
 ## Install
 
 ```bash
-yarn add coinjs
+yarn add qoinjs
 ```
 
 ## How to use
 
 ```javascript
-var coinjs = require('coinjs')
-var agent = new coinjs.Coinone()
+var qoinjs = require('qoinjs')
+var agent = new qoinjs.Coinone()
 agent.subscribe('btc')
 agent.on('btc', function(info) {
     console.log(info)
