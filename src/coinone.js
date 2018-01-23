@@ -42,16 +42,20 @@ export class Coinone extends EventEmitter {
     $conn.emit('subscribe', coin, gather[coin])
 
     $conn.on('update', data => {
+      console.log(data)
       let asks = JSON.parse(data.ASK)
       let bids = JSON.parse(data.BID)
-      let ask = asks.reduce((y, x) => Math.min(y, x.price), asks[0].price)
-      let bid = bids.reduce((y, x) => Math.max(y, x.price), bids[0].price)
-      let obj = {ask: ask, bid: bid}
-      this.emit(coin.toLowerCase(), {ask: ask, bid: bid})
+      let ask = asks.reduce((y, x) => parseInt(y.price) > parseInt(x.price) ? x : y)
+      let bid = bids.reduce((y, x) => parseInt(y.price) < parseInt(x.price) ? x : y)
+      let obj = {ask: parseInt(ask.price), bid: parseInt(bid.price), askQty: parseFloat(ask.qty) / 10000, bidQty: parseFloat(bid.qty) / 10000}
+      this.emit(coin.toLowerCase(), obj)
       if(rAlias[coin])
         for(let a of rAlias[coin])
           this.emit(a.toLowerCase(), obj)
     })
+    $conn.on('connect_error', e => this.emit('error', e))
+    $conn.on('error', e => this.emit('error', e))
+    $conn.on('reconnect_error', e => this.emit('error', e))
     this.$conns[coin] = $conn
   }
 

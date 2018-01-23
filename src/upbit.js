@@ -23,12 +23,35 @@ export class Upbit extends EventEmitter {
       let data = JSON.parse(m.data)
       let sp = data.code.indexOf('-')
       let coin = data.code.substr(sp + 1)
-      let obj = {ask: data.orderbookUnits[0].askPrice, bid: data.orderbookUnits[0].bidPrice}
+      let obj = {ask: parseInt(data.orderbookUnits[0].askPrice), bid: parseInt(data.orderbookUnits[0].bidPrice),
+                 askQty: parseFloat(data.orderbookUnits[0].askSize), bidQty: parseFloat(data.orderbookUnits[0].bidSize)}
       this.emit(coin.toLowerCase(), obj)
       if(rAlias[coin])
         for(let a of rAlias[coin])
           this.emit(a.toLowerCase(), obj)
     }
+    this.$conn.onerror = m => this.emit('error', m)
+  }
+
+  reconnect () {
+    this.$conn.close()
+    this._connected = false
+
+    let conn = new SockJS('https://crix-websocket.upbit.com/sockjs')
+    conn.onopen = this.$conn.onopen
+    conn.onmessage = this.$conn.onmessage
+    conn.onerror = this.$conn.onerror
+    this.$conn = conn
+
+    this._updateSubscribe()
+  }
+
+  _updateSubscribe () {
+    let codes = Object.keys(this._subscribes).map(c => "CRIX.UPBIT.KRW-" + c)
+    this.$conn.send(JSON.stringify([
+      {ticket: "ram macbook"},
+      {type: "crixOrderbook", codes}
+    ]))
   }
 
   _subscribe (coin) {
@@ -38,12 +61,7 @@ export class Upbit extends EventEmitter {
     if(this._subscribes[coin]) return
 
     this._subscribes[coin] = true
-
-    let codes = Object.keys(this._subscribes).map(c => "CRIX.UPBIT.KRW-" + c)
-    this.$conn.send(JSON.stringify([
-      {ticket: "ram macbook"},
-      {type: "crixOrderbook", codes}
-    ]))
+    this._updateSubscribe()
   }
 
   subscribe (coin) {
